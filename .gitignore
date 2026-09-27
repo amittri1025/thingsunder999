@@ -1,0 +1,20 @@
+@'
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Production outputs
+dist/
+build/
+.next/
+
+# Environment variables & secrets
+.env
+.env.local
+*.env.json
+
+# Logs & System
+*.log
+.DS_Store
+Thumbs.db
+'@ | Out-File -FilePath .gitignore -Encoding utf8
