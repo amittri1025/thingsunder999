@@ -183,7 +183,7 @@ function HomePage() {
           <aside className="feed-column">
             <div className="feed-heading">
               <p className="feed-eyebrow">Aap ka sheher, Aap tak 💖</p>
-              <h1>Aaj kaha ka <br></br>Plan hai ? </h1>
+              <h1> <span className="rotating-headline"> <span className="headline-track"> <span>aaj kaha ka plan hai ?</span> <span>date pe jana hai ?</span> <span>chale ghummi ghummi</span> {/* Duplicate first slide for seamless loop */} <span>aaj kaha ka plan hai ?</span> </span> </span> </h1>
               <p>Fresh ideas, local favorites, and main-character plans — all under ₹999. ✨</p>
             </div>
 
