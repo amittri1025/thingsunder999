@@ -1,3 +1,13 @@
+import {
+  FiCoffee,
+  FiHeart,
+  FiMapPin,
+  FiMoon,
+  FiShoppingBag,
+  FiSun,
+  FiZap,
+} from "react-icons/fi";
+
 export const CATEGORIES = [
   "All",
   "Food",
@@ -25,12 +35,12 @@ export const CATEGORY_COLORS = {
   Weekend: "#F7ADAD",
 };
 
-export const CATEGORY_EMOJIS = {
-  Food: "🍜",
-  Activities: "🎉",
-  Places: "✨",
-  Shopping: "🛍️",
-  "Date Ideas": "❤️",
-  Nightlife: "🍺",
-  Weekend: "🥳",
+export const CATEGORY_ICONS = {
+  Food: FiCoffee,
+  Activities: FiZap,
+  Places: FiMapPin,
+  Shopping: FiShoppingBag,
+  "Date Ideas": FiHeart,
+  Nightlife: FiMoon,
+  Weekend: FiSun,
 };

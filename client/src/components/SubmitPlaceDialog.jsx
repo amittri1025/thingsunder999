@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FiX } from "react-icons/fi";
 import { CATEGORIES } from "../constants";
 import { submitPlace } from "../api";
 
@@ -52,8 +53,8 @@ export default function SubmitPlaceDialog({ cities, defaultCity, onClose, onSubm
   return (
     <div className="modal-overlay auth-overlay" onClick={onClose}>
       <section className="place-submit-panel" role="dialog" aria-modal="true" aria-labelledby="submit-place-title" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" type="button" onClick={onClose} aria-label="Close">✕</button>
-        <p className="feed-eyebrow">Spread the good word 💖</p>
+        <button className="modal-close" type="button" onClick={onClose} aria-label="Close"><FiX aria-hidden="true" /></button>
+        <p className="feed-eyebrow">Spread the good word</p>
         <h2 id="submit-place-title">Found an interesting place?</h2>
         <p className="auth-intro">Submit it for review so everyone can enjoy it. Approved finds earn community karma!</p>
         <form className="place-submit-form" onSubmit={handleSubmit}>
@@ -81,7 +82,7 @@ export default function SubmitPlaceDialog({ cities, defaultCity, onClose, onSubm
           </div>
           <label>Tags (comma separated)<input value={form.tags} onChange={(e) => change("tags", e.target.value)} placeholder="rooftop, budget" /></label>
           {error && <p className="form-error" role="alert">{error}</p>}
-          <button className="primary-action" type="submit" disabled={busy}>{busy ? "Sending…" : "Submit place ✨"}</button>
+          <button className="primary-action" type="submit" disabled={busy}>{busy ? "Sending…" : "Submit place"}</button>
         </form>
       </section>
     </div>

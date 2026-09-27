@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FiX } from "react-icons/fi";
 import { loginUser, registerUser } from "../api";
 
 export default function AuthDialog({ onClose, onAuthenticated }) {
@@ -26,8 +27,8 @@ export default function AuthDialog({ onClose, onAuthenticated }) {
   return (
     <div className="modal-overlay auth-overlay" onClick={onClose}>
       <section className="auth-panel" role="dialog" aria-modal="true" aria-labelledby="auth-title" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" type="button" onClick={onClose} aria-label="Close">✕</button>
-        <p className="feed-eyebrow">Join the good finds club ✨</p>
+        <button className="modal-close" type="button" onClick={onClose} aria-label="Close"><FiX aria-hidden="true" /></button>
+        <p className="feed-eyebrow">Join the good finds club</p>
         <h2 id="auth-title">{mode === "login" ? "Welcome back!" : "Create your account"}</h2>
         <p className="auth-intro">Save your favorite places and earn community karma for sharing great finds.</p>
         <form className="auth-form" onSubmit={handleSubmit}>

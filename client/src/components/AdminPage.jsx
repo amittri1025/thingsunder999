@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { FiArrowLeft, FiStar } from "react-icons/fi";
 import { adminAction, adminLogin, adminLogout, getAdminData, getAdminSession } from "../api";
 import { CATEGORIES } from "../constants";
 
@@ -163,7 +164,7 @@ export default function AdminPage() {
     return (
       <main className="admin-page admin-login-page">
         <form className="admin-login-card" onSubmit={handleLogin}>
-          <a className="admin-home-link" href="/">← Back to discoveries</a>
+          <a className="admin-home-link" href="/"><FiArrowLeft aria-hidden="true" /> Back to discoveries</a>
           <p className="feed-eyebrow">Restricted access</p>
           <h1>Admin dashboard</h1>
           <label>Username<input autoComplete="username" value={username} onChange={(e) => setUsername(e.target.value)} required /></label>
@@ -179,9 +180,9 @@ export default function AdminPage() {
     <main className="admin-page">
       <header className="admin-header">
         <div>
-          <a className="admin-home-link" href="/">← Main site</a>
+          <a className="admin-home-link" href="/"><FiArrowLeft aria-hidden="true" /> Main site</a>
           <p className="feed-eyebrow">ThingsUnder999 control room</p>
-          <h1>Admin dashboard ✨</h1>
+          <h1>Admin dashboard <FiStar aria-hidden="true" /></h1>
         </div>
         <button className="secondary-action" onClick={handleLogout}>Log out</button>
       </header>

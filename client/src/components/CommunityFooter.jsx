@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FiHeart, FiMapPin, FiPlus } from "react-icons/fi";
 import { recordVisitor } from "../api";
 
 const STATES = [
@@ -36,18 +37,18 @@ export default function CommunityFooter({ city, onSubmitPlace }) {
   return (
     <footer className="community-footer">
       <div className="community-submit">
-        <span className="community-plus" aria-hidden="true">+</span>
+        <span className="community-plus" aria-hidden="true"><FiPlus /></span>
         <div>
           <h2>Found an interesting place?</h2>
-          <p>Share it with the community so everyone can enjoy it too ✨</p>
+          <p>Share it with the community so everyone can enjoy it too</p>
         </div>
-        <button className="primary-action" type="button" onClick={onSubmitPlace}>Submit a place 💖</button>
+        <button className="primary-action" type="button" onClick={onSubmitPlace}>Submit a place <FiHeart aria-hidden="true" /></button>
       </div>
 
       <div className="visitor-opt-in">
         {!showLocationForm ? (
           <button className="text-action" type="button" onClick={() => setShowLocationForm(true)}>
-            📍 Share your city & state to help us understand our community (optional)
+            <FiMapPin aria-hidden="true" /> Share your city & state to help us understand our community (optional)
           </button>
         ) : (
           <form className="visitor-opt-in-form" onSubmit={shareLocation}>
@@ -66,7 +67,7 @@ export default function CommunityFooter({ city, onSubmitPlace }) {
         )}
         {status && <p className="visitor-status" role="status">{status}</p>}
       </div>
-      <p className="community-signoff">Good finds, good vibes. Made for the curious 💫</p>
+      <p className="community-signoff">Good finds, good vibes. Made for the curious</p>
     </footer>
   );
 }

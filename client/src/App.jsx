@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { FiEye, FiHeart, FiStar, FiTrendingUp } from "react-icons/fi";
 import TopBar from "./components/TopBar";
 import FilterPanel from "./components/FilterPanel";
 import MapView from "./components/MapView";
@@ -157,7 +158,7 @@ function HomePage() {
 
   function handlePlaceSubmitted() {
     setShowSubmission(false);
-    setNotice("Place submitted for review! You’ll earn community karma when it’s approved ✨");
+    setNotice("Place submitted for review! You’ll earn community karma when it’s approved.");
   }
 
   const trendingListings = trending?.[trendingPeriod] || [];
@@ -182,9 +183,9 @@ function HomePage() {
         <div className="home-layout">
           <aside className="feed-column">
             <div className="feed-heading">
-              <p className="feed-eyebrow">Aap ka sheher, Aap tak 💖</p>
+              <p className="feed-eyebrow">Aap ka sheher, Aap tak <FiHeart aria-hidden="true" /></p>
               <h1> <span className="rotating-headline"> <span className="headline-track"> <span>aaj kaha ka plan hai ?</span> <span>date pe jana hai ?</span> <span>chale ghummi ghummi</span> {/* Duplicate first slide for seamless loop */} <span>aaj kaha ka plan hai ?</span> </span> </span> </h1>
-              <p>Fresh ideas, local favorites, and main-character plans — all under ₹999. ✨</p>
+              <p>Fresh ideas, local favorites, and main-character plans — all under ₹999. <FiStar aria-hidden="true" /></p>
             </div>
 
             <FilterPanel
@@ -198,7 +199,7 @@ function HomePage() {
               <div className="feed-section-heading">
                 <div>
                   <p className="feed-eyebrow">The local buzz</p>
-                  <h2>Trending 🔥</h2>
+                  <h2>Trending <FiTrendingUp aria-hidden="true" /></h2>
                 </div>
                 <div className="period-switch" aria-label="Trending time period">
                   <button
@@ -241,7 +242,7 @@ function HomePage() {
               <div className="feed-section-heading">
                 <div>
                   <p className="feed-eyebrow">Live interest</p>
-                  <h2>People are looking at this 👀</h2>
+                  <h2>People are looking at this <FiEye aria-hidden="true" /></h2>
                 </div>
               </div>
               {lookingListings.map((item) => (

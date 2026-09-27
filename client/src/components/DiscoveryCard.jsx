@@ -1,3 +1,5 @@
+import { FiStar } from "react-icons/fi";
+
 export default function DiscoveryCard({ listing, isHovered, onHover, onSelect }) {
   const priceLabel = listing.price === 0 ? "Free" : `₹${listing.price}/person`;
   return (
@@ -14,7 +16,7 @@ export default function DiscoveryCard({ listing, isHovered, onHover, onSelect })
         <h3>{listing.name.split(" — ")[0]}</h3>
         <p className="discovery-price">{priceLabel}</p>
         <p className="discovery-meta">
-          {listing.locality} · {listing.rating}★
+          {listing.locality} · {listing.rating} <FiStar aria-label="stars" />
         </p>
         <p className="discovery-tag">{listing.tags?.[0]}</p>
       </div>

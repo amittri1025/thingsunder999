@@ -1,4 +1,5 @@
-import { CATEGORY_EMOJIS } from "../constants";
+import { FiEye, FiHeart, FiMapPin, FiStar } from "react-icons/fi";
+import { CATEGORY_ICONS } from "../constants";
 
 export default function TrendingCard({
   item,
@@ -12,6 +13,7 @@ export default function TrendingCard({
 }) {
   const { listing, views, likes, viewersNow } = item;
   const priceLabel = listing.price === 0 ? "Free" : `₹${listing.price}`;
+  const CategoryIcon = CATEGORY_ICONS[listing.category] || FiMapPin;
 
   return (
     <article
@@ -28,11 +30,11 @@ export default function TrendingCard({
       />
       <div className="trending-card-content">
         <div className="trending-card-topline">
-          <span className="trending-category">{CATEGORY_EMOJIS[listing.category] || "📍"} {listing.category}</span>
+          <span className="trending-category"><CategoryIcon aria-hidden="true" /> {listing.category}</span>
           <span className="trending-price">{priceLabel}</span>
         </div>
         <h3>{listing.name.split(" — ")[0]}</h3>
-        <p className="trending-location">{listing.locality} · {listing.rating}★</p>
+        <p className="trending-location">{listing.locality} · {listing.rating} <FiStar aria-label="stars" /></p>
         <div className="trending-card-metrics">
           {lookingNow ? (
             <span className="viewing-count">
@@ -40,8 +42,8 @@ export default function TrendingCard({
             </span>
           ) : (
             <>
-              <span>◉ {views?.toLocaleString() ?? listing.reviewCount} views</span>
-              <span>♥ {likes?.toLocaleString() ?? listing.reviewCount}</span>
+              <span><FiEye aria-hidden="true" /> {views?.toLocaleString() ?? listing.reviewCount} views</span>
+              <span><FiHeart aria-hidden="true" /> {likes?.toLocaleString() ?? listing.reviewCount}</span>
             </>
           )}
           {listing.tags?.[0] && <span className="trending-tag">{listing.tags[0]}</span>}
@@ -57,7 +59,7 @@ export default function TrendingCard({
           onBookmark(listing._id);
         }}
       >
-        {isBookmarked ? "💖" : "🤍"}
+        <FiHeart aria-hidden="true" />
       </button>
     </article>
   );

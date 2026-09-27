@@ -1,4 +1,5 @@
-import { CATEGORIES, CATEGORY_EMOJIS, PRICE_BANDS } from "../constants";
+import { FiGrid } from "react-icons/fi";
+import { CATEGORIES, CATEGORY_ICONS, PRICE_BANDS } from "../constants";
 
 export default function FilterPanel({ category, onCategoryChange, priceBand, onPriceBandChange }) {
   return (
@@ -6,15 +7,19 @@ export default function FilterPanel({ category, onCategoryChange, priceBand, onP
       <div className="filter-group">
         <h4>Category</h4>
         <div className="filter-chips">
-          {CATEGORIES.map((c) => (
-            <button
-              key={c}
-              className={`chip ${category === c ? "chip-active" : ""}`}
-              onClick={() => onCategoryChange(c)}
-            >
-              {c === "All" ? "🌈 " : `${CATEGORY_EMOJIS[c]} `}{c}
-            </button>
-          ))}
+          {CATEGORIES.map((c) => {
+            const CategoryIcon = c === "All" ? FiGrid : CATEGORY_ICONS[c];
+            return (
+              <button
+                key={c}
+                className={`chip ${category === c ? "chip-active" : ""}`}
+                onClick={() => onCategoryChange(c)}
+              >
+                <CategoryIcon aria-hidden="true" />
+                {c}
+              </button>
+            );
+          })}
         </div>
       </div>
 

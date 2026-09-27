@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { FiHeart, FiStar, FiX } from "react-icons/fi";
 import { fetchListing, fetchReviews, addReview, submitCorrection } from "../api";
 
 export default function DetailModal({ listingId, onClose, isBookmarked, onBookmark, isLoggedIn }) {
@@ -36,7 +37,7 @@ export default function DetailModal({ listingId, onClose, isBookmarked, onBookma
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-panel" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose}>✕</button>
+        <button className="modal-close" type="button" aria-label="Close" onClick={onClose}><FiX aria-hidden="true" /></button>
 
         <div className="gallery">
           <img src={listing.photos[activePhoto]} alt={listing.name} className="gallery-main" />
@@ -62,11 +63,11 @@ export default function DetailModal({ listingId, onClose, isBookmarked, onBookma
               title={isLoggedIn ? (isBookmarked ? "Remove bookmark" : "Save place") : "Log in to save"}
               aria-label={isBookmarked ? "Remove bookmark" : "Save bookmark"}
             >
-              {isBookmarked ? "💖" : "🤍"}
+              <FiHeart aria-hidden="true" />
             </button>
           </div>
           <p className="modal-meta">
-            {listing.rating}★ ({listing.reviewCount} reviews) · {listing.locality}, {listing.city}
+            {listing.rating} <FiStar aria-label="stars" /> ({listing.reviewCount} reviews) · {listing.locality}, {listing.city}
           </p>
           <p className="modal-price">{listing.price === 0 ? "Free" : `₹${listing.price} / person`}</p>
 
@@ -104,7 +105,7 @@ export default function DetailModal({ listingId, onClose, isBookmarked, onBookma
                   value={reviewForm.rating}
                   onChange={(e) => setReviewForm({ ...reviewForm, rating: Number(e.target.value) })}
                 >
-                  {[5, 4, 3, 2, 1].map((n) => <option key={n} value={n}>{n} ★</option>)}
+                  {[5, 4, 3, 2, 1].map((n) => <option key={n} value={n}>{n} stars</option>)}
                 </select>
                 <textarea
                   placeholder="Share your experience..."
@@ -118,7 +119,7 @@ export default function DetailModal({ listingId, onClose, isBookmarked, onBookma
               <div className="review-list">
                 {reviews.map((r) => (
                   <div key={r._id} className="review-item">
-                    <strong>{r.author}</strong> · {r.rating}★
+                    <strong>{r.author}</strong> · {r.rating} <FiStar aria-label="stars" />
                     <p>{r.comment}</p>
                   </div>
                 ))}

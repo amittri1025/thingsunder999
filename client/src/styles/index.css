@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap");
+
 :root {
   --bg: #CCFBFA;
   --surface: #FFFFFF;
@@ -46,21 +48,28 @@ button {
 .topbar {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 14px 24px;
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(16px);
+  gap: 14px;
+  padding: 12px clamp(16px, 3vw, 36px);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(18px);
   border-bottom: 1px solid var(--line);
+  box-shadow: 0 5px 18px rgba(82, 104, 107, 0.07);
   z-index: 20;
 }
 
 .topbar-logo {
+  display: inline-flex;
+  align-items: center;
   font-family: "Outfit", sans-serif;
   font-weight: 700;
   font-size: 1.35rem;
   letter-spacing: -0.04em;
   white-space: nowrap;
+  color: var(--ink);
+  text-decoration: none;
+  transition: transform 0.2s ease;
 }
+.topbar-logo:hover { transform: translateY(-1px); }
 .topbar-logo span {
   color: var(--accent-ink);
   background: linear-gradient(135deg, #F7ADAD, #F29191);
@@ -70,13 +79,14 @@ button {
 }
 
 .city-select {
-  padding: 9px 12px;
+  padding: 10px 13px;
   border-radius: var(--radius-sm);
-  border: 1px solid var(--line);
-  background: rgba(204, 251, 250, 0.48);
+  border: 1px solid rgba(73, 143, 147, 0.24);
+  background: linear-gradient(145deg, #fff, rgba(204, 251, 250, 0.7));
   color: var(--ink);
   font-size: 0.9rem;
   min-width: 140px;
+  box-shadow: 0 3px 10px rgba(82, 104, 107, 0.05);
 }
 .city-select:focus-visible { outline: 3px solid rgba(177, 229, 230, 0.7); outline-offset: 2px; }
 
@@ -85,12 +95,13 @@ button {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: var(--bg);
-  border: 1px solid var(--line);
+  background: rgba(204, 251, 250, 0.55);
+  border: 1px solid rgba(73, 143, 147, 0.2);
   border-radius: 999px;
-  padding: 9px 16px;
-  max-width: 480px;
+  padding: 10px 17px;
+  max-width: 560px;
   color: var(--ink-soft);
+  box-shadow: inset 0 1px 3px rgba(73, 143, 147, 0.04);
   transition: box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
 }
 .search-box:focus-within { border-color: #8bcfd1; background: white; box-shadow: 0 0 0 4px rgba(177, 229, 230, 0.34); }
@@ -102,19 +113,27 @@ button {
   font-size: 0.92rem;
   color: var(--ink);
 }
+.search-box input::placeholder { color: #8d8790; }
+.search-box > svg { flex: 0 0 auto; font-size: 1rem; }
 
 .locate-btn {
   border: 1px solid rgba(242, 145, 145, 0.4);
   background: linear-gradient(145deg, white, #CCFBFA);
   border-radius: 999px;
-  width: 38px;
-  height: 38px;
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
   display: grid;
   place-items: center;
   color: var(--accent-ink);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .locate-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+.locate-btn svg, .account-btn svg, .karma-pill svg { font-size: 1rem; vertical-align: middle; }
+.locate-btn:focus-visible, .account-btn:focus-visible, .topbar-logo:focus-visible {
+  outline: 3px solid rgba(177, 229, 230, 0.8);
+  outline-offset: 3px;
+}
 
 /* ---------- Body layout ---------- */
 .app-body {
@@ -141,16 +160,6 @@ button {
   position: relative;
   padding-bottom: 20px;
 }
-.feed-heading::after {
-  position: absolute;
-  top: 12px;
-  right: 4%;
-  content: "💖 ✨";
-  font-size: clamp(1.4rem, 3vw, 2.3rem);
-  filter: drop-shadow(0 6px 10px rgba(242,145,145,.28));
-  animation: floaty 3.3s ease-in-out infinite;
-}
-
 .feed-heading h1 {
   max-width: 560px;
   font-size: clamp(2.25rem, 4vw, 3.65rem);
@@ -192,6 +201,9 @@ button {
 .filter-chips { display: flex; flex-wrap: wrap; gap: 8px; }
 
 .chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.78);
   padding: 7px 13px;
@@ -238,7 +250,7 @@ button {
   white-space: nowrap;
   transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
 }
-.price-marker-emoji { font-size: 0.9rem; line-height: 1; }
+.price-marker-icon { display: inline-flex; align-items: center; line-height: 1; }
 .price-marker-active {
   background: var(--marker-color, var(--teal));
   color: var(--ink);
@@ -297,28 +309,10 @@ button {
   font-size: 0.78rem;
 }
 
-```css
 .feed-heading {
   position: relative;
   padding-bottom: 20px;
 }
-
-.feed-heading::after {
-  position: absolute;
-  top: 12px;
-  right: 4%;
-
-  content: "💖 ✨";
-
-  font-size: clamp(1.4rem, 3vw, 2.3rem);
-
-  filter: drop-shadow(
-    0 6px 10px rgba(242, 145, 145, 0.28)
-  );
-
-  animation: floaty 3.3s ease-in-out infinite;
-}
-
 
 /* =========================
    MAIN HEADING
@@ -396,6 +390,9 @@ button {
 
 .headline-track > span {
   display: flex;
+  font-family: "Caveat", cursive;
+  font-size: 1.14em;
+  letter-spacing: 0;
 
   /*
     IMPORTANT:
@@ -577,6 +574,9 @@ button {
   color: var(--ink-soft);
   font-size: 0.75rem;
 }
+.trending-category, .trending-card-metrics > span { display: inline-flex; align-items: center; gap: 4px; }
+.trending-category svg, .trending-location svg, .trending-card-metrics svg { flex: 0 0 auto; }
+.trending-location svg { color: #c58736; }
 
 .trending-card-metrics {
   display: flex;
@@ -620,11 +620,16 @@ button {
   background: white;
   font-size: 1rem;
 }
+.bookmark-button svg { color: var(--accent-ink); vertical-align: middle; }
 .bookmark-button:hover { transform: scale(1.08); box-shadow: 0 4px 12px rgba(242, 145, 145, 0.2); }
 .bookmark-active { background: #fff0f0; border-color: var(--accent); }
 
 .account-actions { display: flex; align-items: center; gap: 8px; }
+.topbar > .account-btn { margin-left: auto; }
 .karma-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   padding: 7px 11px;
   border: 1px solid rgba(242, 145, 145, 0.35);
   border-radius: 999px;
@@ -635,6 +640,10 @@ button {
   white-space: nowrap;
 }
 .account-btn, .secondary-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   padding: 8px 13px;
   border: 1px solid rgba(242, 145, 145, 0.45);
   border-radius: 999px;
@@ -646,13 +655,6 @@ button {
   white-space: nowrap;
 }
 .account-btn:hover, .secondary-action:hover { transform: translateY(-1px); box-shadow: 0 5px 12px rgba(242, 145, 145, 0.18); }
-.admin-entry-link {
-  color: var(--ink-soft);
-  font-size: 0.75rem;
-  text-decoration: none;
-}
-.admin-entry-link:hover { color: var(--accent-ink); }
-
 .community-footer {
   margin: 24px -8px 0;
   padding: 22px;
@@ -674,9 +676,7 @@ button {
   border-radius: 16px;
   background: linear-gradient(135deg, #F7ADAD, #F29191);
   color: #743f4b;
-  font-family: "Outfit", sans-serif;
-  font-size: 2rem;
-  line-height: 1;
+  font-size: 1.4rem;
   box-shadow: 0 7px 18px rgba(242,145,145,.25);
 }
 .community-submit > div { flex: 1; min-width: 0; }
@@ -1012,7 +1012,6 @@ button {
   .search-box { order: 3; flex-basis: 100%; max-width: none; }
   .account-actions { margin-left: auto; }
   .karma-pill { font-size: 0.7rem; padding: 6px 8px; }
-  .admin-entry-link { display: none; }
   .home-layout {
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: minmax(0, 1fr) minmax(220px, 42vh);
