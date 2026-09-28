@@ -1,18 +1,25 @@
 import { useMemo } from "react";
-import { FiStar } from "react-icons/fi";
-import { renderToStaticMarkup } from "react-dom/server";
 import { MapContainer, TileLayer, Marker, Tooltip, useMap } from "react-leaflet";
 import L from "leaflet";
-import { CATEGORY_COLORS, CATEGORY_ICONS } from "../constants";
+import { CATEGORY_COLORS } from "../constants";
+
+const CATEGORY_MAP_EMOJIS = {
+  Food: "🍜",
+  Activities: "🎡",
+  Places: "🧭",
+  Shopping: "🛍️",
+  "Date Ideas": "💘",
+  Nightlife: "🍸",
+  Weekend: "🏕️",
+};
 
 function priceIcon(listing, isActive) {
   const color = CATEGORY_COLORS[listing.category] || "#1C1B19";
-  const CategoryIcon = CATEGORY_ICONS[listing.category] || CATEGORY_ICONS.Places;
-  const categoryIcon = renderToStaticMarkup(<CategoryIcon aria-hidden="true" />);
+  const categoryEmoji = CATEGORY_MAP_EMOJIS[listing.category] || "📍";
   const price = listing.price === 0 ? "Free" : `₹${listing.price}`;
   return L.divIcon({
     className: "",
-    html: `<div class="price-marker ${isActive ? "price-marker-active" : ""}" style="--marker-color:${color}"><span class="price-marker-icon">${categoryIcon}</span><span>${price}</span></div>`,
+    html: `<div class="price-marker ${isActive ? "price-marker-active" : ""}" style="--marker-color:${color}"><span class="price-marker-emoji" aria-hidden="true">${categoryEmoji}</span><span>${price}</span></div>`,
     iconSize: [76, 32],
     iconAnchor: [38, 32],
   });
@@ -51,7 +58,7 @@ export default function MapView({ listings, center, activeId, hoveredId, onSelec
                 <img src={listing.photos?.[0]} alt={listing.name} />
                 <div>
                   <strong>{listing.name}</strong>
-                  <span>{listing.locality} · {listing.rating} <FiStar aria-label="stars" /></span>
+                  <span>{listing.locality} · {listing.rating} ⭐</span>
                 </div>
               </div>
             </Tooltip>

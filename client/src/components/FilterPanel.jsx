@@ -1,25 +1,41 @@
-import { FiGrid } from "react-icons/fi";
-import { CATEGORIES, CATEGORY_ICONS, PRICE_BANDS } from "../constants";
+import { CATEGORIES, PRICE_BANDS } from "../constants";
+
+const CATEGORY_EMOJIS = {
+  All: "🌈",
+  Food: "🍜",
+  Activities: "🎉",
+  Places: "🌿",
+  Shopping: "🛍️",
+  "Date Ideas": "💘",
+  Nightlife: "🍸",
+  Weekend: "🏕️",
+};
 
 export default function FilterPanel({ category, onCategoryChange, priceBand, onPriceBandChange }) {
+  function renderCategoryChips(isDuplicate = false) {
+    return CATEGORIES.map((item) => (
+      <button
+        key={item}
+        type="button"
+        className={`chip ${category === item ? "chip-active" : ""}`}
+        onClick={() => onCategoryChange(item)}
+        tabIndex={isDuplicate ? -1 : undefined}
+      >
+        <span aria-hidden="true">{CATEGORY_EMOJIS[item]}</span>
+        {item}
+      </button>
+    ));
+  }
+
   return (
     <aside className="filter-panel">
       <div className="filter-group">
         <h4>Category</h4>
-        <div className="filter-chips">
-          {CATEGORIES.map((c) => {
-            const CategoryIcon = c === "All" ? FiGrid : CATEGORY_ICONS[c];
-            return (
-              <button
-                key={c}
-                className={`chip ${category === c ? "chip-active" : ""}`}
-                onClick={() => onCategoryChange(c)}
-              >
-                <CategoryIcon aria-hidden="true" />
-                {c}
-              </button>
-            );
-          })}
+        <div className="category-marquee">
+          <div className="category-marquee-track">
+            <div className="category-chip-set">{renderCategoryChips()}</div>
+            <div className="category-chip-set" aria-hidden="true">{renderCategoryChips(true)}</div>
+          </div>
         </div>
       </div>
 
