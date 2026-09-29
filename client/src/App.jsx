@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FiEye, FiHeart, FiStar, FiTrendingUp } from "react-icons/fi";
 import TopBar from "./components/TopBar";
-import FilterPanel from "./components/FilterPanel";
+import FilterPanel, { CategoryMarquee } from "./components/FilterPanel";
 import MapView from "./components/MapView";
 import TrendingCard from "./components/TrendingCard";
 import DetailModal from "./components/DetailModal";
@@ -9,6 +9,7 @@ import AuthDialog from "./components/AuthDialog";
 import SubmitPlaceDialog from "./components/SubmitPlaceDialog";
 import CommunityFooter from "./components/CommunityFooter";
 import AdminPage from "./components/AdminPage";
+import RotatingHeadline from "./components/RotatingHeadline";
 import {
   fetchListings,
   fetchCities,
@@ -19,6 +20,7 @@ import {
 } from "./api";
 
 const DEFAULT_CENTER = [28.6139, 77.209];
+const HEADLINE_PHRASES = ["aaj kaha ka plan hai? 🫠", "date pe... chaloge? 👉👈", "chale ghummi ghummi 🙂‍↔️"];
 
 function HomePage() {
   const [cities, setCities] = useState(["Delhi NCR"]);
@@ -40,6 +42,19 @@ function HomePage() {
   const [selectedId, setSelectedId] = useState(null);
   const [hoveredId, setHoveredId] = useState(null);
   const [center, setCenter] = useState(DEFAULT_CENTER);
+  const [openFilterSection, setOpenFilterSection] = useState(null);
+
+  function renderFilters(section) {
+    return (
+      <FilterPanel
+        priceBand={priceBand}
+        onPriceBandChange={setPriceBand}
+        isOpen={openFilterSection === section}
+        onToggle={() => setOpenFilterSection((current) => current === section ? null : section)}
+        panelId={`${section}-filters`}
+      />
+    );
+  }
 
   useEffect(() => {
     fetchCities().then((availableCities) => {
@@ -185,24 +200,14 @@ function HomePage() {
             <div className="feed-heading">
               <p className="feed-eyebrow">Aap ka sheher, Aap tak <FiHeart aria-hidden="true" /></p>
               <h1 className="headline-title">
-                <span className="rotating-headline" aria-label="aaj kaha ka plan hai?">
-                  <span className="headline-track">
-                    <span>aaj kaha ka plan hai?</span>
-                    <span>date pe jana hai?</span>
-                    <span>chale ghummi ghummi</span>
-                    <span aria-hidden="true">aaj kaha ka plan hai?</span>
-                  </span>
-                </span>
+                <RotatingHeadline
+                  phrases={HEADLINE_PHRASES}
+                  ariaLabel="aaj kaha ka plan hai?"
+                />
               </h1>
+              <CategoryMarquee category={category} onCategoryChange={setCategory} />
               <p>Fresh ideas, local favorites, and main-character plans — all under ₹999. <FiStar aria-hidden="true" /></p>
             </div>
-
-            <FilterPanel
-              category={category}
-              onCategoryChange={setCategory}
-              priceBand={priceBand}
-              onPriceBandChange={setPriceBand}
-            />
 
             <section className="feed-section">
               <div className="feed-section-heading">
@@ -210,21 +215,24 @@ function HomePage() {
                   <p className="feed-eyebrow">The local buzz</p>
                   <h2>Trending <FiTrendingUp aria-hidden="true" /></h2>
                 </div>
-                <div className="period-switch" aria-label="Trending time period">
-                  <button
-                    className={trendingPeriod === "today" ? "period-active" : ""}
-                    aria-pressed={trendingPeriod === "today"}
-                    onClick={() => setTrendingPeriod("today")}
-                  >
-                    Today
-                  </button>
-                  <button
-                    className={trendingPeriod === "week" ? "period-active" : ""}
-                    aria-pressed={trendingPeriod === "week"}
-                    onClick={() => setTrendingPeriod("week")}
-                  >
-                    Last week
-                  </button>
+                <div className="listing-heading-actions">
+                  <div className="period-switch" aria-label="Trending time period">
+                    <button
+                      className={trendingPeriod === "today" ? "period-active" : ""}
+                      aria-pressed={trendingPeriod === "today"}
+                      onClick={() => setTrendingPeriod("today")}
+                    >
+                      Today
+                    </button>
+                    <button
+                      className={trendingPeriod === "week" ? "period-active" : ""}
+                      aria-pressed={trendingPeriod === "week"}
+                      onClick={() => setTrendingPeriod("week")}
+                    >
+                      Last week
+                    </button>
+                  </div>
+                  {renderFilters("trending")}
                 </div>
               </div>
 
@@ -253,6 +261,7 @@ function HomePage() {
                   <p className="feed-eyebrow">Live interest</p>
                   <h2>People are looking at this <FiEye aria-hidden="true" /></h2>
                 </div>
+                {renderFilters("looking")}
               </div>
               {lookingListings.map((item) => (
                 <TrendingCard
@@ -278,7 +287,10 @@ function HomePage() {
                   <p className="feed-eyebrow">Made for you</p>
                   <h2>All discoveries</h2>
                 </div>
-                <span>{listings.length} places</span>
+                <div className="listing-heading-actions">
+                  <span>{listings.length} places</span>
+                  {renderFilters("discoveries")}
+                </div>
               </div>
               {listings.map((listing) => (
                 <TrendingCard
