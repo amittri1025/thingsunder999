@@ -2,8 +2,7 @@
 
 A map-first discovery app for finding food, activities, places and things to
 do for ₹999 or less, across major Indian metros. Built on the MERN stack
-(MongoDB, Express, React, Node) with Leaflet/OpenStreetMap for the map layer
-(no API key required, unlike Google Maps).
+(MongoDB, Express, React, Node) with Google Maps for the map layer.
 
 This is the **basic working model**: a real, runnable full-stack app with
 a seeded sample dataset, ready for you to swap in a real ingestion pipeline
@@ -63,6 +62,13 @@ npm run dev                # starts React app on http://localhost:5173
 
 Vite proxies `/api/*` to `http://localhost:5000`, so open
 `http://localhost:5173` and the two talk to each other automatically.
+Add a Google Maps JavaScript API key to `client/.env.local` as
+`VITE_GOOGLE_MAPS_API_KEY=your-key`. Enable the Maps JavaScript API and billing
+in Google Cloud, and restrict the key to your frontend domains.
+For a separately hosted frontend, set the client build variable
+`VITE_API_BASE_URL` to the backend API base URL (for example,
+`https://api.example.com/api`). Set the server's `CLIENT_ORIGIN` to the
+frontend origin without a path (for example, `https://app.example.com`).
 
 ## API reference
 
@@ -131,9 +137,8 @@ favorites to a user account → open a listing for its detail panel, reviews,
 and corrections. Signed-in users can submit new places; admins review them
 before publication and award community karma.
 
-- **Map**: Leaflet + OpenStreetMap tiles, custom price-pill markers colored
-  by category, hover shows a mini preview tooltip, click opens the detail
-  panel.
+- **Map**: Google Maps with a custom pink-and-gray style, randomized emoji
+  markers, hover previews, and click-to-open listing details.
 - **Filter panel**: category chips + ₹ price bands, combined via query
   params against the API.
 - **Home feed**: scrollable discovery feed on the left and an equal-width,
@@ -174,10 +179,8 @@ live immediately. A production pipeline would typically:
 
 ## Notes on choices made for this MVP
 
-- **Leaflet + OpenStreetMap** instead of Google Maps — no API key or billing
-  account needed to run this out of the box. Swapping to Google Maps later
-  means replacing `MapView.jsx` (react-leaflet → `@react-google-maps/api`);
-  the rest of the app is map-library-agnostic.
+- **Google Maps** via `@react-google-maps/api`; configure
+  `VITE_GOOGLE_MAPS_API_KEY` in the client environment before running the map.
 - **Vite** for the client build — faster dev server than CRA.
 - Review submission recomputes the listing's `rating`/`reviewCount` in a
   MongoDB transaction so the two never drift out of sync.

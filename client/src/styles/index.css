@@ -240,28 +240,53 @@ button {
   width: 100%;
 }
 
-.price-marker {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  height: 30px;
-  padding: 0 10px;
-  background: rgba(255, 255, 255, 0.96);
-  border: 1.5px solid var(--marker-color, var(--teal));
-  color: var(--ink);
-  font-weight: 700;
-  font-size: 0.76rem;
-  border-radius: 999px;
-  box-shadow: 0 4px 12px rgba(28, 27, 25, 0.18);
-  white-space: nowrap;
-  transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+.map-setup-notice {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 24px;
+  background: #f6dce4;
+  color: #686b73;
+  text-align: center;
+  font-weight: 600;
 }
-.price-marker-emoji { font-size: 0.95rem; line-height: 1; }
-.price-marker-active {
-  background: var(--marker-color, var(--teal));
+.map-marker-overlay { position: relative; width: 48px; height: 48px; }
+.emoji-map-marker-content {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 40px;
+  line-height: 1;
+  -webkit-text-stroke: 1px white;
+  text-shadow:
+    1px 0 white,
+    -1px 0 white,
+    0 1px white,
+    0 -1px white,
+    0 2px 4px rgba(28, 27, 25, 0.55);
+  transition: transform 0.15s ease;
+}
+.emoji-map-marker-active { transform: scale(1.2); }
+.map-marker-preview {
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 50%;
+  z-index: 1;
+  min-width: 190px;
+  padding: 8px;
+  transform: translateX(-50%);
+  border: 1px solid #858a93;
+  border-radius: var(--radius-sm);
+  background: #f6dce4;
+  box-shadow: 0 4px 14px rgba(28, 27, 25, 0.25);
   color: var(--ink);
-  transform: translateY(-2px) scale(1.1);
 }
 
 .preview-card {
@@ -273,13 +298,6 @@ button {
 .preview-card img { width: 42px; height: 42px; border-radius: 8px; object-fit: cover; }
 .preview-card strong { display: block; font-size: 0.82rem; }
 .preview-card span { font-size: 0.72rem; color: var(--ink-soft); }
-.leaflet-tooltip.map-preview-tooltip {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow);
-}
-
 .card-rail {
   position: absolute;
   left: 16px;
@@ -937,7 +955,7 @@ button {
   .search-box { order: 3; flex-basis: 100%; max-width: none; }
   .account-actions { margin-left: auto; }
   .karma-pill { font-size: 0.7rem; padding: 6px 8px; }
-  .home-layout {
+    .home-layout {
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: minmax(0, 1fr) minmax(220px, 42vh);
   }
