@@ -71,7 +71,7 @@ function GoogleMapContent({ listings, center, activeId, hoveredId, onSelect, onH
             key={listing._id}
             position={{ lat: listing.coordinates.lat, lng: listing.coordinates.lng }}
             mapPaneName="overlayMouseTarget"
-            getPixelPositionOffset={() => ({ x: -24, y: -24 })}
+            getPixelPositionOffset={() => ({ x: -26, y: -56 })}
           >
             <div
               className="map-marker-overlay"
