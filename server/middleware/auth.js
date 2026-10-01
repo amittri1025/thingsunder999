@@ -24,10 +24,11 @@ export function readCookie(req, name) {
 }
 
 export function cookieOptions(maxAge) {
+  const production = process.env.NODE_ENV === "production";
   return {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
+    secure: production,
+    sameSite: production ? "none" : "lax",
     path: "/",
     maxAge,
   };

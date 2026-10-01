@@ -19,6 +19,11 @@ const listingSchema = new mongoose.Schema(
     locality: { type: String, required: true },
     description: { type: String, required: true },
     photos: { type: [String], default: [] },
+    photoCredits: [{
+      author: { type: String, default: "" },
+      license: { type: String, default: "" },
+      sourceUrl: { type: String, default: "" },
+    }],
     rating: { type: Number, default: 0 },
     reviewCount: { type: Number, default: 0 },
     coordinates: {

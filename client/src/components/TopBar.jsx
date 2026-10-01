@@ -13,9 +13,19 @@ export default function TopBar({
 }) {
   return (
     <header className="topbar">
-      <a className="topbar-logo" href="/" aria-label="ThingsUnder999 home">
-        Things<span>Under999</span>
-      </a>
+<a className="topbar-logo" href="/" aria-label="Nazara home">
+  <img
+    src="/logo.png"
+    alt="Nazara"
+        className="topbar-logo-img"
+
+    onError={(e) => {
+      e.currentTarget.style.display = "none";
+      e.currentTarget.nextElementSibling.style.display = "inline";
+    }}
+  />
+  <span style={{ display: "none" }}>Nazara</span>
+</a>
 
       <select className="city-select" value={city} onChange={(e) => onCityChange(e.target.value)}>
         {cities.map((c) => (

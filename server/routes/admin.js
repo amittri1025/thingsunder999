@@ -129,6 +129,7 @@ router.patch("/submissions/:id", requireAdmin, async (req, res) => {
           locality: submission.locality,
           description: submission.description,
           photos: submission.photos,
+          photoCredits: submission.photoCredits,
           coordinates: submission.coordinates,
           tags: submission.tags,
           thingsToKnow: submission.thingsToKnow,

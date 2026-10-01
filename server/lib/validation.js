@@ -41,8 +41,17 @@ export function validatePlace(input) {
   }
   const photos = stringArray(input.photos, "photos", 12, 2048);
   if (photos.some((url) => !/^https?:\/\/\S+$/i.test(url))) throw new Error("photos must contain valid http(s) URLs");
+  const photoCredits = input.photoCredits === undefined ? [] : input.photoCredits;
+  if (!Array.isArray(photoCredits) || photoCredits.length > 12 || photoCredits.some((credit) =>
+    !credit || typeof credit !== "object" ||
+    typeof credit.author !== "string" || credit.author.length > 200 ||
+    typeof credit.license !== "string" || credit.license.length > 80 ||
+    typeof credit.sourceUrl !== "string" || !/^https?:\/\/\S+$/i.test(credit.sourceUrl)
+  )) {
+    throw new Error("photoCredits must contain valid photo attribution details");
+  }
   return {
-    name, category, price, city, locality, description, photos,
+    name, category, price, city, locality, description, photos, photoCredits,
     coordinates: { lat, lng },
     tags: stringArray(input.tags, "tags", 30, 50),
     thingsToKnow: stringArray(input.thingsToKnow, "thingsToKnow", 30, 500),

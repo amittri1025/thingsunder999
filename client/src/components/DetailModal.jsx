@@ -41,6 +41,14 @@ export default function DetailModal({ listingId, onClose, isBookmarked, onBookma
 
         <div className="gallery">
           <img src={listing.photos[activePhoto]} alt={listing.name} className="gallery-main" />
+          {listing.photoCredits?.[activePhoto] && (
+            <p className="photo-credit">
+              Photo: <a href={listing.photoCredits[activePhoto].sourceUrl} target="_blank" rel="noreferrer">
+                {listing.photoCredits[activePhoto].author || "Wikimedia Commons"}
+              </a>
+              {listing.photoCredits[activePhoto].license && ` · ${listing.photoCredits[activePhoto].license}`}
+            </p>
+          )}
           <div className="gallery-thumbs">
             {listing.photos.map((p, i) => (
               <img

@@ -52,6 +52,12 @@ npm run seed              # populates ~84 sample listings
 npm run dev                # starts API on http://localhost:5000
 ```
 
+To add 100 Delhi NCR testing places, run `npm run seed:delhi` from `server/`.
+It uses approximate locality-level coordinates and stable seeded placeholder
+photos from Picsum, then idempotently upserts only these test records without
+deleting other listings. Names and locality descriptions are based on the
+provided list; prices and venue details are illustrative and unverified.
+
 ### 3. Frontend
 
 ```bash
@@ -65,10 +71,19 @@ Vite proxies `/api/*` to `http://localhost:5000`, so open
 Add a Google Maps JavaScript API key to `client/.env.local` as
 `VITE_GOOGLE_MAPS_API_KEY=your-key`. Enable the Maps JavaScript API and billing
 in Google Cloud, and restrict the key to your frontend domains.
+Copy `client/.env.example` to `client/.env.local` for local environment setup.
+When the API is served from the same origin, the client uses `/api` by default.
 For a separately hosted frontend, set the client build variable
 `VITE_API_BASE_URL` to the backend API base URL (for example,
 `https://api.example.com/api`). Set the server's `CLIENT_ORIGIN` to the
 frontend origin without a path (for example, `https://app.example.com`).
+Because hosted frontend and backend use cross-site session cookies, set the
+backend `NODE_ENV=production`; production cookies use `SameSite=None; Secure`.
+User accounts must be registered before a user can log in, and admin access
+requires `ADMIN_USERNAME` plus an `ADMIN_PASSWORD` of at least 16 characters.
+Changing the admin credentials in the backend environment requires restarting
+the server.
+Copy `server/.env.example` to `server/.env` when setting up the backend.
 
 ## API reference
 

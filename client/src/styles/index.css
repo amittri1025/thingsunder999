@@ -70,6 +70,12 @@ button {
   text-decoration: none;
   transition: transform 0.2s ease;
 }
+.topbar-logo-img {
+  /* width: 60px; */
+  height: 80px;
+  object-fit: contain;
+}
+
 .topbar-logo:hover { transform: translateY(-1px); }
 .topbar-logo span {
   color: var(--accent-ink);
@@ -879,6 +885,8 @@ button {
 }
 
 .gallery-main { width: 100%; height: 260px; object-fit: cover; display: block; }
+.photo-credit { margin: 0; padding: 6px 12px; border-bottom: 2px solid var(--ink); background: #fff; color: var(--ink-soft); font-size: 0.8rem; }
+.photo-credit a { color: var(--blue); font-weight: 700; }
 .gallery-thumbs { display: flex; gap: 6px; padding: 8px; background: var(--bg); }
 .gallery-thumbs img { width: 56px; height: 44px; object-fit: cover; border-radius: 6px; cursor: pointer; opacity: 0.6; }
 .gallery-thumbs img.thumb-active { opacity: 1; outline: 2px solid var(--teal); }

@@ -41,7 +41,8 @@ export default function AuthDialog({ onClose, onAuthenticated }) {
             <input
               type="password"
               autoComplete={mode === "login" ? "current-password" : "new-password"}
-              minLength="10"
+              minLength={mode === "register" ? 10 : undefined}
+              maxLength="128"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
